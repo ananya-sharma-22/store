@@ -1,33 +1,27 @@
 @import "tailwindcss";
 
+/* ================== WIX COLOR SYSTEM ================== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --cream-bg: #faf7f4;
+  --soft-cream: #fff5f0;
+  --brand-brown: #8b3f1d;
+  --brand-accent: #e2724f;
+  --text-dark: #2b2b2b;
+  --text-muted: #6f6f6f;
+  --border-soft: #e8c1a9;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* ================== BASE ================== */
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--cream-bg);
+  color: var(--text-dark);
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* ================== NAVBAR ================== */
 .nav-btn {
-  background-color: #fff5f0;
-  color: #d74000;
+  background-color: var(--soft-cream);
+  color: var(--brand-accent);
   padding: 0.6rem 2.5rem;
   font-size: 1.05rem;
   border-radius: 9999px;
@@ -39,9 +33,21 @@ body {
   background-color: #ffe4d6;
 }
 
-/* ===== HERO BACKGROUND ===== */
+.nav-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--brand-accent);
+  transition: transform 0.2s ease;
+}
+
+.nav-icon:hover {
+  transform: scale(1.1);
+}
+
+/* ================== HERO SECTION ================== */
 .hero-section {
-  min-height: 100vh;
+  width: 100%;
+  height: 80vh;
   background-image: url("/images/welcome-bg.jpg");
   background-size: cover;
   background-position: center;
@@ -50,48 +56,49 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
-/* ===== WHITE OVERLAY CARD ===== */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+/* ================== HERO CARD ================== */
 .hero-card {
-  background-color: #ffffff;
-  padding: 60px 80px;
+  position: relative;
+  background: white;
+  padding: 3.5rem 4rem;
   text-align: center;
-  max-width: 600px;
+  max-width: 520px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  z-index: 1;
 }
 
-/* ===== WELCOME TEXT ===== */
 .hero-title {
-  font-size: 64px;
-  letter-spacing: 6px;
-  color: #8b2c1f;
-  margin-bottom: 30px;
-
-  text-shadow:
-    3px 3px 0 #cfa28a,
-    6px 6px 0 rgba(0, 0, 0, 0.2);
+  font-size: 2.5rem;
+  letter-spacing: 0.3em;
+  color: var(--brand-brown);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
 }
 
-/* ===== SUBTEXT ===== */
 .hero-text {
-  font-size: 16px;
   font-style: italic;
-  color: #3a2a22;
-  margin-bottom: 10px;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
 }
 
-/* ===== BUTTON ===== */
 .hero-btn {
-  margin-top: 30px;
-  padding: 12px 30px;
-  background-color: #8b2c1f;
-  color: #fff;
+  margin-top: 2rem;
+  background-color: var(--brand-brown);
+  color: white;
+  padding: 0.75rem 2.5rem;
   border: none;
-  font-size: 14px;
-  letter-spacing: 1px;
   cursor: pointer;
-
+  letter-spacing: 1px;
   transform: skew(-10deg);
 }
 
@@ -99,13 +106,141 @@ body {
   background-color: #6f2218;
 }
 
-.nav-icon {
-  width: 24px;
-  height: 24px;
-  color: #e2724f;
-  transition: transform 0.2s ease;
+/* ================== HERO DIVIDER ================== */
+.hero-divider {
+  width: 100%;
 }
 
-.nav-icon:hover {
-  transform: scale(1.1);
+.divider-white {
+  height: 60px;
+  background: white;
+}
+
+.divider-brown {
+  height: 90px;
+  background: linear-gradient(to right, #8b3f1d, #d29b7a);
+}
+
+/* ================== SHOP PAGE ================== */
+.shop-page {
+  background: var(--cream-bg);
+  color: var(--text-dark);
+}
+
+.shop-page h1 {
+  color: var(--text-dark);
+}
+
+.shop-page p {
+  color: var(--text-muted);
+}
+
+.shop-page aside h3 {
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.shop-page aside li,
+.shop-page aside label {
+  color: var(--text-dark);
+}
+
+.shop-page aside li:hover {
+  color: var(--brand-accent);
+}
+
+/* ================== PRODUCT CARDS ================== */
+.product-card {
+  text-align: left;
+  cursor: pointer;
+  background: #faf7f4;
+  padding-bottom: 12px;
+}
+
+.product-image-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #faf7f4;
+}
+
+.product-img {
+  width: 100%;
+  display: block;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+/* primary image */
+.primary-img {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* secondary image */
+.secondary-img {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+/* hover animation */
+.product-card:hover .primary-img {
+  opacity: 0;
+  transform: translateY(-12px);
+}
+
+.product-card:hover .secondary-img {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.product-card h4 {
+  margin-top: 10px;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.product-card p {
+  margin-top: 2px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* ================== FOOTER ================== */
+footer {
+  background: var(--cream-bg);
+  color: var(--text-dark);
+}
+
+footer h3 {
+  color: var(--text-dark);
+  letter-spacing: 0.15em;
+}
+
+footer p,
+footer a {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+footer a:hover {
+  color: var(--brand-accent);
+}
+
+footer .border-t {
+  border-color: var(--border-soft);
+}
+
+/* ================== RESPONSIVE ================== */
+@media (max-width: 768px) {
+  .hero-card {
+    padding: 2.5rem 2rem;
+    margin: 0 1rem;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+    letter-spacing: 0.2em;
+  }
 }
