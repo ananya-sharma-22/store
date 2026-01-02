@@ -582,3 +582,17 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+/* SMOOTH FADE BETWEEN IMAGES */
+.fade-img {
+  animation: fade 0.25s ease-in-out;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}

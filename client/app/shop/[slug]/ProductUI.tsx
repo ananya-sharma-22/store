@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useCart } from "@/app/lib/cart-context";
 import { Facebook, Instagram, Linkedin, Share2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -14,71 +14,91 @@ type Product = {
 };
 
 export default function ProductUI({ product }: { product: Product }) {
-  const [activeImage, setActiveImage] = useState(product.images[0]);
+  const [active, setActive] = useState(0);
   const [qty, setQty] = useState(1);
-  const { addToCart } = useCart();
+  const [zoom, setZoom] = useState(false);
+  const [pos, setPos] = useState({ x: 50, y: 50 });
+
+  const imgRef = useRef<HTMLDivElement>(null);
+  const { addToCart, openCart } = useCart();
   const router = useRouter();
+
+  /* ---------------- ZOOM TRACKING ---------------- */
+  const handleMove = (e: React.MouseEvent) => {
+    const rect = imgRef.current!.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setPos({ x, y });
+  };
+
+  /* ---------------- MOBILE TAP ZOOM ---------------- */
+  const toggleZoom = () => setZoom(!zoom);
 
   return (
     <section className="max-w-6xl mx-auto px-6 py-16">
       <div className="grid grid-cols-[80px_420px_1fr] gap-10 items-start">
         {/* THUMBNAILS */}
         <div className="flex flex-col gap-3">
-          {product.images.map((img) => (
+          {product.images.map((img, i) => (
             <button
               key={img}
-              onMouseEnter={() => setActiveImage(img)}
-              onClick={() => setActiveImage(img)}
+              onMouseEnter={() => setActive(i)}
+              onClick={() => setActive(i)}
               className={`border ${
-                activeImage === img
-                  ? "border-red-500"
-                  : "border-gray-300"
+                active === i ? "border-red-600" : "border-gray-300"
               }`}
             >
-              <Image
-                src={img}
-                alt=""
-                width={60}
-                height={80}
-                className="object-contain"
-              />
+              <Image src={img} alt="" width={60} height={80} />
             </button>
           ))}
         </div>
 
-        {/* MAIN IMAGE (FIXED SIZE – NO OVERFLOW) */}
-        <div className="relative w-[420px] h-[560px] bg-white border mx-auto">
+        {/* MAIN IMAGE */}
+        <div
+          ref={imgRef}
+          className="relative w-[420px] h-[560px] border bg-white overflow-hidden"
+          onMouseEnter={() => setZoom(true)}
+          onMouseLeave={() => setZoom(false)}
+          onMouseMove={handleMove}
+          onClick={toggleZoom}
+        >
           <Image
-            src={activeImage}
+            key={product.images[active]}
+            src={product.images[active]}
             alt={product.name}
             fill
-            className="object-contain"
+            className="object-contain fade-img"
             priority
           />
+
+          {/* ZOOM LENS */}
+          {zoom && (
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                backgroundImage: `url(${product.images[active]})`,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "200%",
+                backgroundPosition: `${pos.x}% ${pos.y}%`,
+              }}
+            />
+          )}
         </div>
 
         {/* PRODUCT INFO */}
         <div>
-          <h1 className="text-2xl font-medium mb-2">
-            {product.name}
-          </h1>
+          <h1 className="text-2xl font-medium mb-2">{product.name}</h1>
           <p className="text-lg mb-4">₹{product.price}</p>
 
           {/* Quantity */}
           <div className="mb-6">
             <p className="text-sm mb-1">Quantity *</p>
-            <div className="inline-flex items-center border">
-              <button
-                className="px-3 py-1"
-                onClick={() => setQty((q) => Math.max(1, q - 1))}
-              >
+            <div className="inline-flex border">
+              <button onClick={() => setQty(Math.max(1, qty - 1))} className="px-3">
                 −
               </button>
               <span className="px-4">{qty}</span>
-              <button
-                className="px-3 py-1"
-                onClick={() => setQty((q) => q + 1)}
-              >
+              <button onClick={() => setQty(qty + 1)} className="px-3">
                 +
               </button>
             </div>
@@ -87,29 +107,30 @@ export default function ProductUI({ product }: { product: Product }) {
           {/* Buttons */}
           <div className="space-y-4">
             <button
-              className="w-full bg-red-600 text-white py-3 rounded-full"
-              onClick={() =>
+              onClick={() => {
                 addToCart({
                   slug: product.slug,
                   name: product.name,
                   price: product.price,
                   image: product.images[0],
                   quantity: qty,
-                })
-              }
+                });
+                openCart();
+              }}
+              className="w-full bg-red-600 text-white py-3 rounded-full"
             >
               Book Now
             </button>
 
             <button
-              className="w-full border border-red-600 text-red-600 py-3 rounded-full"
               onClick={() => router.push("/")}
+              className="w-full border border-red-600 text-red-600 py-3 rounded-full"
             >
               Customize Design
             </button>
           </div>
 
-          {/* Share Icons */}
+          {/* Share */}
           <div className="flex gap-4 mt-6 text-gray-600">
             <Facebook size={18} />
             <Instagram size={18} />
