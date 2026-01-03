@@ -23,8 +23,8 @@ export default function Navbar() {
         <div className="hidden md:flex gap-6">
           <Link href="/" className="nav-btn">Home</Link>
           <Link href="/shop" className="nav-btn">Shop</Link>
-          <Link href="/design" className="nav-btn">Design</Link>
-          <Link href="/studio" className="nav-btn">Studio</Link>
+          <Link href="/Design" className="nav-btn">Design</Link>
+          <Link href="/Studio" className="nav-btn">Studio</Link>
         </div>
 
         {/* ICONS */}

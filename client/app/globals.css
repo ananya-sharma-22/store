@@ -596,3 +596,293 @@ img {
     opacity: 1;
   }
 }
+
+/* ===== CATALOGUE SECTION ===== */
+
+.catalogue-section {
+  padding: 4rem 2rem;
+  background: #fffaf6;
+}
+
+.catalogue-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: #2b2b2b;
+}
+
+/* Horizontal scroll container */
+.catalogue-scroll {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+}
+
+/* Hide scrollbar (Wix-like) */
+.catalogue-scroll::-webkit-scrollbar {
+  display: none;
+}
+.catalogue-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Product card */
+.catalogue-card {
+  min-width: 300px;
+  scroll-snap-align: start;
+  background: transparent;
+}
+
+/* Product image */
+.catalogue-image {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 6px;
+  transition: transform 0.4s ease;
+}
+
+.catalogue-image:hover {
+  transform: scale(1.03);
+}
+
+/* Info below image */
+.catalogue-info {
+  margin-top: 1rem;
+}
+
+.catalogue-info h3 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+
+.catalogue-info p {
+  font-size: 0.95rem;
+  margin-bottom: 0.8rem;
+}
+
+/* Book Now button */
+.catalogue-btn {
+  background: #9c3f12;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.catalogue-btn:hover {
+  opacity: 0.9;
+}
+
+/* Bottom center button */
+.catalogue-bottom-btn {
+  margin: 3rem auto 0;
+  display: block;
+  background: #9c3f12;
+  color: white;
+  border: none;
+  padding: 0.8rem 3rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.catalogue-bottom-btn:hover {
+  opacity: 0.9;
+}
+
+/* Mobile tweaks */
+@media (max-width: 768px) {
+  .catalogue-card {
+    min-width: 240px;
+  }
+
+  .catalogue-image {
+    height: 340px;
+  }
+}
+
+/* =========================
+   HOME CATALOGUE
+========================= */
+
+.catalogue-section {
+  padding: 80px 0;
+  background: #fffaf5;
+}
+
+.catalogue-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 40px;
+}
+
+.catalogue-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.catalogue-scroll {
+  display: flex;
+  gap: 40px;
+  max-width: 1200px; /* 3 cards */
+  overflow-x: auto;
+  padding-bottom: 20px;
+  scroll-snap-type: x mandatory;
+}
+
+.catalogue-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+.catalogue-scroll::-webkit-scrollbar-thumb {
+  background: #c26a2e;
+  border-radius: 10px;
+}
+
+/* PRODUCT CARD */
+.product-card {
+  flex: 0 0 360px;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  scroll-snap-align: center;
+}
+
+.image-wrap {
+  position: relative;
+  width: 100%;
+  height: 460px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.img {
+  object-fit: contain;
+  transition: opacity 0.4s ease;
+}
+
+.img-hover {
+  opacity: 0;
+}
+
+.image-wrap:hover .img-hover {
+  opacity: 1;
+}
+
+.image-wrap:hover .img-front {
+  opacity: 0;
+}
+
+.product-card h3 {
+  margin-top: 16px;
+  font-size: 18px;
+}
+
+.price {
+  margin: 6px 0 14px;
+  font-size: 16px;
+}
+
+.book-btn {
+  background: #9f3d12;
+  color: white;
+  padding: 10px 28px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+}
+
+.book-btn:hover {
+  background: #7d2f0e;
+}
+
+/* ================= HOME CATALOGUE ================= */
+
+.home-catalogue {
+  max-width: 1200px;
+  margin: 120px auto 80px;
+  padding: 0 20px;
+}
+
+.catalogue-title {
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 30px;
+}
+
+.catalogue-scroll {
+  display: flex;
+  gap: 32px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 10px;
+}
+
+.catalogue-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.catalogue-scroll::-webkit-scrollbar-thumb {
+  background: #c9a089;
+  border-radius: 10px;
+}
+
+/* Exactly 3 cards visible */
+.product-card {
+  flex: 0 0 calc((1200px - 64px) / 3);
+  scroll-snap-align: start;
+  background: transparent;
+}
+
+.product-image {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  overflow: hidden;
+}
+
+.product-image img {
+  object-fit: contain;
+  transition: opacity 0.4s ease;
+}
+
+.img-hover {
+  opacity: 0;
+}
+
+.product-image:hover .img-hover {
+  opacity: 1;
+}
+
+.product-image:hover .img-front {
+  opacity: 0;
+}
+
+.product-card h3 {
+  margin-top: 14px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.price {
+  font-size: 14px;
+  margin: 6px 0 10px;
+}
+
+.product-card button {
+  background: #9b3f12;
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
