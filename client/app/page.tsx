@@ -1,42 +1,14 @@
 import Link from "next/link";
-import Image from "next/image";
 import HomeCatalogue from "@/components/HomeCatalogue";
-
-const products = [
-  {
-    slug: "indo-western-saree",
-    name: "Indo-Western Saree",
-    price: 5000,
-    image: "/images/p1-1.jpg",
-  },
-  {
-    slug: "dazzling-shimmery-lehenga",
-    name: "Dazzling Shimmery Lehenga",
-    price: 8000,
-    image: "/images/p2-1.jpg",
-  },
-  {
-    slug: "sequence-blouse-lehenga",
-    name: "Sequence Blouse with Lehenga",
-    price: 4000,
-    image: "/images/p3-1.jpg",
-  },
-  {
-    slug: "customised-saree",
-    name: "Customised Saree",
-    price: 5000,
-    image: "/images/p4-1.jpeg",
-  },
-];
 
 export default function Home() {
   return (
     <main>
-
-      {/* ================= HERO SECTION ================= */}
+      {/* ================= HERO ================= */}
       <section className="hero-section">
         <div className="hero-card">
           <h1 className="hero-title">WELCOME</h1>
+
           <p className="hero-text">
             Not stitched in bulk. Stitched in meaning.
           </p>
@@ -50,14 +22,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= SCROLLABLE CATALOGUE ================= */}
       <HomeCatalogue />
 
-      {/* ================= ABOUT SECTION ================= */}
+      {/* ================= ABOUT ================= */}
       <section className="about-section">
         <div className="about-container">
           <div className="about-left">
-            <h2>Our<br />Story</h2>
+            <h2>
+              Our <br /> Story
+            </h2>
           </div>
 
           <div className="about-right">
@@ -79,7 +52,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
     </main>
   );
 }

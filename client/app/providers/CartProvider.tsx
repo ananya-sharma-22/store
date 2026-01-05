@@ -4,7 +4,6 @@ import { createContext, useContext, useState } from "react";
 
 export type CartItem = {
   id: string;
-  slug: string;
   name: string;
   price: number;
   image: string;
@@ -31,6 +30,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const addToCart = (item: Omit<CartItem, "quantity">) => {
     setCartItems((prev) => {
       const existing = prev.find((p) => p.id === item.id);
+
       if (existing) {
         return prev.map((p) =>
           p.id === item.id
@@ -38,13 +38,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             : p
         );
       }
+
       return [...prev, { ...item, quantity: 1 }];
     });
+
     setIsCartOpen(true);
   };
 
   const updateQuantity = (id: string, qty: number) => {
     if (qty < 1) return;
+
     setCartItems((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, quantity: qty } : item

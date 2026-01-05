@@ -1,74 +1,63 @@
 "use client";
 
 import Image from "next/image";
-import { useCart } from "@/app/providers/CartProvider";
-
-
-const products = [
-  {
-    name: "Indo-Western Saree",
-    price: 5000,
-    slug: "indo-western-saree",
-    img1: "/images/p1-1.jpg",
-    img2: "/images/p1-2.jpg",
-  },
-  {
-    name: "Dazzling Shimmery Lehenga",
-    price: 8000,
-    slug: "dazzling-shimmery-lehenga",
-    img1: "/images/p2-1.jpg",
-    img2: "/images/p2-2.jpg",
-  },
-  {
-    name: "Sequence Blouse with Lehenga",
-    price: 4000,
-    slug: "sequence-blouse-lehenga",
-    img1: "/images/p3-1.jpg",
-    img2: "/images/p3-2.jpg",
-  },
-  {
-    name: "Customised Saree",
-    price: 5000,
-    slug: "customised-saree",
-    img1: "/images/p4-1.jpeg",
-    img2: "/images/p4-2.jpg",
-  },
-];
+import Link from "next/link";
+import { products } from "@/data/products";
+import styles from "./HomeCatalogue.module.css";
+import { useRef } from "react";
 
 export default function HomeCatalogue() {
-  const { addToCart } = useCart();
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollLeft = () => {
+    scrollRef.current?.scrollBy({ left: -380, behavior: "smooth" });
+  };
+
+  const scrollRight = () => {
+    scrollRef.current?.scrollBy({ left: 380, behavior: "smooth" });
+  };
 
   return (
-    <section className="home-catalogue">
-      <h2 className="catalogue-title">All Products</h2>
+    <section className={styles.catalogue}>
+      <h2 className={styles.title}>All Products</h2>
 
-      <div className="catalogue-scroll">
-        {products.map((p) => (
-          <div key={p.slug} className="product-card">
-            <div className="product-image">
-              <Image src={p.img1} alt={p.name} fill className="img-front" />
-              <Image src={p.img2} alt={p.name} fill className="img-hover" />
-            </div>
+      <div className={styles.wrapper}>
+        {/* LEFT ARROW */}
+        <button className={styles.arrowLeft} onClick={scrollLeft}>
+          &#8592;
+        </button>
 
-            <h3>{p.name}</h3>
-            <p className="price">₹{p.price.toLocaleString()}</p>
+        {/* SCROLL AREA */}
+        <div className={styles.scroll} ref={scrollRef}>
+          {products.map((p) => (
+            <Link key={p.id} href={`/shop/${p.id}`} className={styles.card}>
+              <div className={styles.imageWrap}>
+                <Image
+                  src={p.images[0]}
+                  alt={p.name}
+                  fill
+                  className={`${styles.img} ${styles.imgFront}`}
+                />
+                <Image
+                  src={p.images[1]}
+                  alt={p.name}
+                  fill
+                  className={`${styles.img} ${styles.imgHover}`}
+                />
+              </div>
 
-            <button
-              onClick={() =>
-                addToCart({
-                    id : p.slug,
-                    slug: p.slug,
-                    name: p.name,
-                    price: p.price,
-                    image: p.img1,
-                //   quantity: 1,
-                })
-              }
-            >
-              Book Now
-            </button>
-          </div>
-        ))}
+              <h3 className={styles.name}>{p.name}</h3>
+              <p className={styles.price}>₹{p.price}</p>
+
+              <button className={styles.btn}>Book Now</button>
+            </Link>
+          ))}
+        </div>
+
+        {/* RIGHT ARROW */}
+        <button className={styles.arrowRight} onClick={scrollRight}>
+          &#8594;
+        </button>
       </div>
     </section>
   );

@@ -7,10 +7,12 @@ import { Facebook, Instagram, Linkedin, Share2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 type Product = {
-  slug: string;
+  id: string;
   name: string;
   price: number;
   images: string[];
+  category: "saree" | "lehenga" | "custom";
+  description: string;
 };
 
 export default function ProductUI({ product }: { product: Product }) {
@@ -36,8 +38,7 @@ export default function ProductUI({ product }: { product: Product }) {
     // add product qty times (CartProvider handles quantity internally)
     for (let i = 0; i < qty; i++) {
       addToCart({
-        id: product.slug,          // ✅ using slug as id
-        slug: product.slug,
+        id: product.id,          // ✅ using slug as id
         name: product.name,
         price: product.price,
         image: product.images[0],

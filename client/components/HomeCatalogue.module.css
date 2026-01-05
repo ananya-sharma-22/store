@@ -1,0 +1,131 @@
+.catalogue {
+  padding: 80px 0;
+  background: #fffaf5;
+}
+
+.title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 40px;
+}
+
+/* CENTERED AREA */
+.wrapper {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* SCROLL CONTAINER */
+.scroll {
+  display: flex;
+  gap: 40px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 10px 60px 30px;
+}
+
+/* HIDE SCROLLBAR */
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+.scroll {
+  scrollbar-width: none;
+}
+
+/* CARD — EXACTLY 3 VISIBLE */
+.card {
+  flex: 0 0 calc((1200px - 80px) / 3);
+  scroll-snap-align: start;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* IMAGE */
+.imageWrap {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.img {
+  object-fit: contain;
+  transition: opacity 0.4s ease;
+}
+
+.imgHover {
+  opacity: 0;
+}
+
+.imageWrap:hover .imgHover {
+  opacity: 1;
+}
+
+.imageWrap:hover .imgFront {
+  opacity: 0;
+}
+
+/* TEXT */
+.name {
+  margin-top: 16px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.price {
+  margin: 6px 0 14px;
+  font-size: 15px;
+}
+
+/* BUTTON */
+.btn {
+  background: #9f3d12;
+  color: white;
+  padding: 10px 28px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+}
+
+/* ARROWS */
+.arrowLeft,
+.arrowRight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #9f3d12;
+  color: white;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.arrowLeft {
+  left: -20px;
+}
+
+.arrowRight {
+  right: -20px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .card {
+    flex: 0 0 80%;
+  }
+
+  .arrowLeft,
+  .arrowRight {
+    display: none;
+  }
+}
