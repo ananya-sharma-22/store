@@ -5,15 +5,14 @@ export default async function SignInPage({
 }: {
   searchParams: Promise<{ redirect_url?: string }>;
 }) {
-  const params = await searchParams;
-
-  const redirectUrl = params.redirect_url || "/";
+  const { redirect_url } = await searchParams;
 
   return (
     <div className="flex min-h-screen items-center justify-center">
       <SignIn
-        redirectUrl={redirectUrl}
-        afterSignInUrl={redirectUrl}
+        redirectUrl={redirect_url || "/"}
+        afterSignInUrl={redirect_url || "/"}
+        afterSignUpUrl={redirect_url || "/"}
       />
     </div>
   );

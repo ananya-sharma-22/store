@@ -12,7 +12,7 @@ export const products: Product[] = [
     id: "indo-western-saree",
     name: "Indo-Western Saree",
     price: 5000,
-    images: ["/images/p1-1.jpg", "/images/p1-2.jpg"],
+    images: ["/images/p1-1.jpg", "/images/p1-2.jpg", "/images/p1-3.jpg", "/images/p1-4.jpg"],
     category: "saree",
     description: "Elegant indo-western saree tailored to your measurements",
   },
@@ -47,5 +47,13 @@ export const products: Product[] = [
     images: ["/images/p5-1.jpg", "/images/p5-2.jpg"],
     category: "lehenga",
     description: "Fully customised lehenga from fabric to fit",
+  },
+  {
+    id: "draped-saree",
+    name: "Draped Saree",
+    price: 6000,
+    images: ["/images/p6-1.jpg", "/images/p6-2.jpg"],
+    category: "saree",
+    description: "Drape Saree Custom Fit",
   },
 ];
