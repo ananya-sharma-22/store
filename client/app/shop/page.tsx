@@ -55,11 +55,14 @@ export default function ShopPage() {
             className="border rounded-full px-4 py-2 text-sm"
             onChange={(e) => setCategory(e.target.value)}
           >
-            <option value="all">Product type</option>
+            <option value="all">All Products</option>
             <option value="saree">Saree</option>
             <option value="lehenga">Lehenga</option>
             <option value="gown">Gown</option>
             <option value="custom">Custom</option>
+            <option value="suit">Suit</option>
+            <option value="co-ord">Co-Ord</option>
+            <option value="anarkali">Anarkali</option>
           </select>
 
           <select
