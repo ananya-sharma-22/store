@@ -41,7 +41,7 @@ export default function CartPage() {
 
                 <div className="flex-1">
                   <Link
-                    href={`/shop/${item.slug}`}
+                    href={`/shop/${item.id}`}
                     className="font-medium"
                   >
                     {item.name}
