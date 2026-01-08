@@ -12,6 +12,8 @@
     "@clerk/nextjs": "^6.36.5",
     "lucide-react": "^0.562.0",
     "next": "16.1.1",
+    "openai": "^6.15.0",
+    "openapi": "^1.0.1",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },

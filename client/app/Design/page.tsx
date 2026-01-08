@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import products, { Product } from "@/data/products";
 
+
+
+
 /* ---------------- TYPES ---------------- */
 
 type Category = {
@@ -53,6 +56,8 @@ const ADDONS: AddOn[] = [
   { name: "Contrast Collar", price: 799 },
 ];
 
+
+
 /* ---------------- HELPERS ---------------- */
 
 function getCategoryProducts(categoryKey: string): Product[] {
@@ -64,14 +69,40 @@ function getCategoryProducts(categoryKey: string): Product[] {
 const convert = (value: number, to: "in" | "cm") =>
   to === "cm" ? value * 2.54 : value / 2.54;
 
+/* ---------------- AI PROMPT ---------------- */
+
+function buildAIPrompt({
+  style,
+  fabric,
+  addons,
+}: {
+  style: string;
+  fabric?: string;
+  addons: string[];
+}) {
+  return `
+High-quality studio fashion photograph of a female model,
+neutral standing pose, front-facing,
+professional soft lighting,
+plain light background,
+realistic fabric texture,
+luxury Indian fashion editorial.
+
+Outfit: ${style}.
+Fabric: ${fabric ?? "premium fabric"}.
+Design details: ${addons.length ? addons.join(", ") : "minimal elegant design"}.
+`;
+}
+
 /* ---------------- PAGE ---------------- */
+
 
 export default function DesignPage() {
   const [activeTab, setActiveTab] =
     useState<(typeof TABS)[number]>("Style");
 
   const [activeCategory, setActiveCategory] =
-    useState<Category>(CATEGORIES[0]);
+  useState<Category>(CATEGORIES[0]);
 
   const [selectedFabric, setSelectedFabric] =
     useState<Fabric | null>(null);
@@ -88,8 +119,12 @@ export default function DesignPage() {
 
   const [previewIndex, setPreviewIndex] = useState(0);
 
+  const [aiImage, setAiImage] = useState<string | null>(null);
+  const [loadingAI, setLoadingAI] = useState(false);
+
   const categoryProducts = getCategoryProducts(activeCategory.key);
   const stylePrice = categoryProducts[0]?.price ?? 0;
+
 
   /* ---------------- IMAGE ROTATION ---------------- */
 
@@ -101,6 +136,33 @@ export default function DesignPage() {
     );
     return () => clearInterval(i);
   }, [activeCategory.key, categoryProducts.length]);
+
+  /* ---------------- AI IMAGE GENERATION ---------------- */
+
+  const generateImage = async () => {
+    const finalPrompt = buildAIPrompt({
+      style: activeCategory.label,
+      fabric: selectedFabric?.name,
+      addons: selectedAddOns.map((a) => a.name),
+    });
+
+    try {
+      setLoadingAI(true);
+
+      const res = await fetch("/api/GenerateImage", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt: finalPrompt }),
+      });
+
+      const data = await res.json();
+      setAiImage(data.imageUrl);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoadingAI(false);
+    }
+  };
 
   /* ---------------- UNIT CONVERSION ---------------- */
 
@@ -245,8 +307,31 @@ export default function DesignPage() {
         )}
       </aside>
 
-      {/* CENTER */}
-      <main className="flex-1" />
+    
+      {/* CENTER PREVIEW */}
+      <main className="flex-1 flex items-center justify-center bg-[#fff8f4]">
+        <div className="relative w-[320px]">
+          {loadingAI && (
+            <div className="absolute inset-0 bg-white/70 flex items-center justify-center z-10">
+              Generating…
+            </div>
+          )}
+
+          <img
+            src={aiImage ?? "/images/placeholder-mannequin.jpg"}
+            className="rounded-xl shadow-lg"
+            alt="AI Preview"
+          />
+
+          <button onClick={generateImage}
+            className="mt-4 w-full bg-[#e26a4f] text-white py-2 rounded-lg"
+          >
+            Update Preview
+          </button>
+          </div>
+          </main>
+
+      
 
       {/* ---------------- RIGHT PANEL ---------------- */}
       <aside className="w-[360px] bg-[#fff5f0] border-l p-5 overflow-y-auto">
